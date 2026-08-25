@@ -54,3 +54,121 @@ desafio-estagio-ia/
 ├── README.md                      # Visão geral e instruções do projeto
 └── requirements.txt               # Dependências Python do projeto
 ```
+## 4. Requisitos
+
+Para configurar e executar o projeto, são necessários:
+
+- Python 3.12;
+- Git;
+- ambiente virtual Python;
+- Jupyter Notebook ou VS Code com as extensões Python e Jupyter.
+
+A versão utilizada durante o desenvolvimento é o Python 3.12.2.
+
+## 5. Configuração do ambiente
+
+### 5.1 Criar o ambiente virtual
+
+No Windows, execute:
+
+```powershell
+py -3.12 -m venv .venv
+```
+
+### 5.2 Ativar o ambiente virtual
+
+No PowerShell, execute:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Caso a execução de scripts esteja bloqueada no terminal atual, execute:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+Em seguida, tente novamente a ativação do ambiente.
+
+### 5.3 Instalar as dependências
+
+Com o ambiente virtual ativado, execute:
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+### 5.4 Configurar as variáveis de ambiente
+
+As credenciais necessárias serão armazenadas localmente em um arquivo chamado `.env`.
+
+O arquivo `.env.example` apresentará os nomes das variáveis necessárias, sem conter credenciais reais. A configuração exata será adicionada após a definição do provedor de LLM utilizado no projeto.
+
+O arquivo `.env` não deve ser enviado ao GitHub.
+
+## 6. Execução
+
+### Nível 1
+
+O Nível 1 será desenvolvido no notebook:
+
+```text
+nivel_1/nivel_1.ipynb
+```
+
+As instruções de execução serão adicionadas após a implementação e validação dessa etapa. Na entrega final, o notebook será mantido executado, com suas saídas visíveis.
+
+### Nível 2
+
+O Nível 2 será organizado nos seguintes arquivos:
+
+```text
+nivel_2/tools.py
+nivel_2/agente.py
+nivel_2/confronto.py
+```
+
+As instruções de execução serão adicionadas após a implementação e validação dessa etapa.
+
+### Nível 3
+
+O Nível 3 é opcional e somente será documentado caso seja efetivamente implementado.
+
+## 7. Resultados e saídas
+
+Os resultados produzidos durante a execução serão armazenados no diretório:
+
+```text
+outputs/
+```
+
+As saídas relevantes serão incluídas no repositório para permitir a avaliação direta dos resultados, sem depender da execução local do código.
+
+Esta seção será atualizada com a descrição e a localização de cada saída após a conclusão dos níveis implementados.
+
+## 8. Documentação complementar
+
+A documentação detalhada está disponível nos seguintes arquivos:
+
+- [Decisões técnicas](docs/DECISOES.md)
+- [Uso de Inteligência Artificial](docs/USO_DE_IA.md)
+
+## 9. Segurança
+
+Nenhuma chave de API, senha ou credencial será incluída no código, nos notebooks, nas saídas ou na documentação.
+
+As credenciais serão armazenadas somente no arquivo local `.env`, que está ignorado pelo Git. O arquivo `.env.example` conterá apenas os nomes das variáveis necessárias, sem valores sensíveis.
+
+## 10. Observação sobre a entrega
+
+O arquivo `ENTREGA.yaml` será atualizado ao final do desenvolvimento com:
+
+- identificação da candidata;
+- provedor e modelo utilizados;
+- tempo dedicado ao desafio;
+- status de cada item;
+- localização das implementações e saídas;
+- plano para itens parciais ou não realizados.
+
+Somente funcionalidades efetivamente implementadas e verificadas serão declaradas como completas.
