@@ -1,0 +1,22 @@
+# Variáveis de ambiente e segredos
+.env
+
+# Ambiente virtual do Python
+.venv/
+venv/
+
+# Arquivos temporários do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Arquivos temporários do Jupyter
+.ipynb_checkpoints/
+
+# Configurações locais do VS Code
+.vscode/
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
