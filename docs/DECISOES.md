@@ -72,11 +72,22 @@ A operação `OP-0013`, do cliente `CLI-A-4`, foi validada como caso positivo. O
 
 A regra considera apenas a distribuição de valores do próprio conjunto analisado. Em bases pequenas, a mediana pode não representar completamente o comportamento histórico do cliente.
 
-
 ### 3.6 Validações
+O cliente `CLI-A-1`, sinalizado pela Regra 1, foi selecionado para a análise com LLM. O cliente apresenta três operações realizadas na mesma data, com soma de R$ 54.200 e valores individuais inferiores a R$ 20.000. O caso permite avaliar como a LLM interpreta e comunica um comportamento já identificado por uma regra determinística. A maior limitação é A seleção de um único cliente não permite generalizar o parecer para todos os casos sinalizados. A LLM será utilizada apenas para interpretação e redação, sem recalcular os critérios da regra.
+
+
+
 ### 3.7 Divisão de responsabilidades entre pandas e LLM
+
+
+## Integração com LLM
+A LLM foi utilizada para interpretar e redigir o parecer de um cliente previamente sinalizado pelo Pandas. Foram testadas duas versões do prompt. A segunda versão adicionou restrições contra inferências não sustentadas, atribuição de intenção e conclusões definitivas.
+
+As respostas foram convertidas de JSON para dicionário Python e validadas quanto aos campos obrigatórios, tipos e níveis de risco permitidos. Respostas malformadas são preservadas e identificadas com uma mensagem de erro, evitando que sejam utilizadas silenciosamente.
+
+Também foram registrados modelo, tempo, número de tentativas e tokens. Indisponibilidades temporárias da API foram tratadas com novas tentativas progressivas.
 ### 3.8 Estrutura e validação da resposta da LLM
-### 3.9 Tratamento de respostas malformadas
+
 
 ## 4. Decisões do Nível 2
 

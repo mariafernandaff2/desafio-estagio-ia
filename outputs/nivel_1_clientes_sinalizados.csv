@@ -1,0 +1,3 @@
+cliente_id,regra_1,regra_2
+CLI-A-1,True,False
+CLI-A-4,False,True

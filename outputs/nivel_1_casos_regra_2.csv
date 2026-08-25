@@ -1,0 +1,2 @@
+id,cliente_id,data,valor,moeda,canal,tipo,contraparte,observacao,data_ausente,valor_brl,quantidade_operacoes,mediana_cliente_brl,limite_5x_mediana_brl,sinalizado_regra_2
+OP-0013,CLI-A-4,2026-03-24,12000,USD,ted,transferencia_recebida,Zeta Importacao,remessa internacional,False,64800.00000000001,4,5450.0,27250.0,True

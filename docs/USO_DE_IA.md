@@ -24,10 +24,12 @@ Esse caso reforçou a necessidade de validar as orientações da IA antes de apl
 
 ## 4. Próximas atualizações
 
-Este documento será atualizado durante o desenvolvimento com:
+### Comparação dos prompts
 
-- os principais prompts utilizados;
-- a finalidade de cada interação;
-- sugestões aceitas, modificadas ou rejeitadas;
-- formas de validação das respostas;
-- outros casos em que a orientação da IA precisou ser corrigida.
+A Versão 1 solicitou um parecer estruturado e objetivo. A Versão 2 tornou as restrições mais explícitas, exigindo evidências diretamente sustentadas pelos dados, impedindo atribuição de intenção e reforçando que a sinalização não comprova irregularidade.
+
+Os cálculos, a conversão cambial, as agregações, as medianas e as regras de sinalização foram executados exclusivamente com Pandas. A LLM foi utilizada apenas na interpretação textual do caso.
+
+**Modelo:** gemini-3.5-flash-lite  
+**Cliente analisado:** CLI-A-1
+
