@@ -9,15 +9,15 @@ horas_dedicadas: null
 
 nivel_1:
 
-  limpeza_dados:      {status: nao_feito, plano: "docs/DECISOES.md"}
+  limpeza_dados:      {status: completo, plano: "docs/DECISOES.md"}
 
-  regras_pandas:      {status: nao_feito, plano: "docs/DECISOES.md"}
+  regras_pandas:      {status: completo, plano: "docs/DECISOES.md"}
 
-  validacao_regras:   {status: nao_feito, plano: "docs/DECISOES.md"}
+  validacao_regras:   {status: completo, plano: "docs/DECISOES.md"}
 
-  saida_estruturada:  {status: nao_feito, plano: "docs/DECISOES.md"}
+  saida_estruturada:  {status: completo, plano: "docs/DECISOES.md"}
 
-  comparacao_prompts: {status: nao_feito, plano: "docs/DECISOES.md"}
+  comparacao_prompts: {status: completo, plano: "docs/DECISOES.md"}
 
 
 nivel_2:

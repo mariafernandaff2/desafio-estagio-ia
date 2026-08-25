@@ -172,3 +172,18 @@ O arquivo `ENTREGA.yaml` será atualizado ao final do desenvolvimento com:
 - plano para itens parciais ou não realizados.
 
 Somente funcionalidades efetivamente implementadas e verificadas serão declaradas como completas.
+
+
+## Nível 1
+
+O Nível 1 realiza a limpeza e normalização das operações, conversão dos valores para BRL, agregações por cliente e canal e aplicação de duas regras determinísticas de sinalização.
+
+Um cliente sinalizado é analisado por uma LLM, utilizada somente para interpretação e redação de um parecer estruturado. Os cálculos permanecem sob responsabilidade do Pandas.
+
+O notebook está disponível em:
+
+`nivel_1/nivel_1.ipynb`
+
+Os resultados gerados estão disponíveis em:
+
+`outputs/`
