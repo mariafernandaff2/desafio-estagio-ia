@@ -35,7 +35,44 @@ Foram verificadas moedas inválidas, valores ausentes ou não positivos e a conv
 
 
 ### 3.4 Agregações
+
+
 ### 3.5 Regras determinísticas
+## Implementação da Regra 1
+
+**Contexto:**  
+A Regra 1 busca identificar um conjunto de operações do mesmo cliente, na mesma data, com possível fracionamento de valores.
+As operações com data válida foram agrupadas por `cliente_id` e `data`. Para cada grupo, foram calculadas a quantidade de operações, a soma em BRL e a maior operação individual. O grupo foi sinalizado quando apresentou pelo menos três operações, soma superior a R$ 50.000 e nenhuma operação individual igual ou superior a R$ 20.000.
+
+
+O agrupamento por cliente e data permite aplicar diretamente os critérios determinísticos do desafio. A condição de que nenhuma operação seja igual ou superior a R$ 20.000 foi representada pela verificação de que o maior valor do grupo é inferior a R$ 20.000.
+
+A operação `OP-0017` foi excluída somente desta regra, pois não possui data e não pode ser associada com segurança a um grupo diário. Ela foi preservada na base principal e nas análises que não dependem da data.
+
+
+O cliente `CLI-A-1`, em 09/03/2026, foi validado como caso positivo, com três operações que totalizam R$ 54.200 e maior valor individual de R$ 18.800. O cliente `CLI-A-3`, em 05/03/2026, foi validado como caso semelhante negativo, pois suas três operações totalizam R$ 48.500, abaixo do limite exigido.
+
+ 
+A regra depende da disponibilidade e correção das datas. Operações sem data não podem ser avaliadas quanto à ocorrência no mesmo dia.
+
+
+
+## Implementação da Regra 2
+A Regra 2 busca identificar operações com valor muito superior ao comportamento habitual do próprio cliente.
+
+Foram calculadas a quantidade de operações e a mediana dos valores em BRL para cada cliente. Essas estatísticas foram associadas às operações, e foram sinalizados somente os valores superiores a cinco vezes a mediana de clientes com pelo menos quatro operações.
+
+A mediana foi utilizada conforme determinado pelo desafio e apresenta menor sensibilidade a valores extremos do que a média. A conversão prévia para BRL garante que operações em moedas diferentes sejam comparadas na mesma unidade.
+
+
+A operação `OP-0017` foi mantida na Regra 2 porque essa análise depende apenas do cliente e do valor, e não da data. Sua exclusão reduziria artificialmente o número de operações do cliente `CLI-A-5`.
+
+
+A operação `OP-0013`, do cliente `CLI-A-4`, foi validada como caso positivo. O cliente possui quatro operações, mediana de R$ 5.450 e limite de R$ 27.250. Como a operação possui valor convertido de R$ 64.800, ela foi sinalizada. O cliente `CLI-A-5` foi validado como caso negativo elegível, pois possui quatro operações, mas nenhuma supera cinco vezes sua mediana.
+
+A regra considera apenas a distribuição de valores do próprio conjunto analisado. Em bases pequenas, a mediana pode não representar completamente o comportamento histórico do cliente.
+
+
 ### 3.6 Validações
 ### 3.7 Divisão de responsabilidades entre pandas e LLM
 ### 3.8 Estrutura e validação da resposta da LLM
