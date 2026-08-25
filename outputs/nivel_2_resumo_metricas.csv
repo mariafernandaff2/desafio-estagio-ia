@@ -1,0 +1,2 @@
+quantidade_clientes,quantidade_chamadas,latencia_total_segundos,latencia_media_segundos,tokens_entrada_total,tokens_saida_total,tokens_total,custo_total_usd
+10,20,1092.2389999999998,54.61194999999999,12143,4777,16920,0.0

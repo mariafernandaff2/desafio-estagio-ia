@@ -1,10 +1,10 @@
 candidato: Maria Fernanda de Araujo Feitosa
 
-modelo_usado: gemini-3.7-flash
+modelo_usado: gemini-3.1-flash-lite
 
 provedor: google-ai-studio
 
-horas_dedicadas: null
+horas_dedicadas: 12 horas
 
 
 nivel_1:
@@ -22,15 +22,15 @@ nivel_1:
 
 nivel_2:
 
-  regras_em_escala: {status: nao_feito, plano: "docs/DECISOES.md"}
+  regras_em_escala: {status: completo, plano: "docs/DECISOES.md"}
 
-  ferramentas:      {status: nao_feito, plano: "docs/DECISOES.md"}
+  ferramentas:      {status: completo, plano: "docs/DECISOES.md"}
 
-  agente:           {status: nao_feito, plano: "docs/DECISOES.md"}
+  agente:           {status: completo, plano: "docs/DECISOES.md"}
 
-  lote:             {status: nao_feito, plano: "docs/DECISOES.md"}
+  lote:             {status: completo, plano: "docs/DECISOES.md"}
 
-  confronto:        {status: nao_feito, plano: "docs/DECISOES.md"}
+  confronto:        {status: completo, plano: "docs/DECISOES.md"}
 
 
 nivel_3:

@@ -1,0 +1,97 @@
+{
+  "cliente_id": "CLI-029",
+  "modelo": "gemini-3.5-flash-lite",
+  "ferramentas_executadas": [
+    {
+      "nome": "historico_cliente",
+      "data": null,
+      "motivo": "Necessário para analisar a quantidade, volume, média, mediana, maior operação e período analisado do cliente CLI-029."
+    },
+    {
+      "nome": "operacoes_do_dia",
+      "data": "2026-05-26",
+      "motivo": "Há uma data específica relevante identificada nos alertas determinísticos (regra_1)."
+    }
+  ],
+  "resultados_ferramentas": {
+    "historico_cliente": {
+      "cliente_id": "CLI-029",
+      "quantidade_operacoes": 16,
+      "volume_total_brl": 191385.77,
+      "valor_medio_brl": 11961.61,
+      "mediana_brl": 10337.49,
+      "maior_operacao_brl": 48045.64,
+      "primeira_data": "2026-03-11",
+      "ultima_data": "2026-05-26"
+    },
+    "operacoes_do_dia": [
+      {
+        "id": "OP-00301",
+        "data": "2026-05-26",
+        "valor_brl": 19418.96,
+        "canal": "ted",
+        "tipo": "saque",
+        "contraparte": "Orion Trading SA",
+        "observacao": ""
+      },
+      {
+        "id": "OP-00300",
+        "data": "2026-05-26",
+        "valor_brl": 19138.59,
+        "canal": "ted",
+        "tipo": "deposito",
+        "contraparte": "Solar Importacao LTDA",
+        "observacao": ""
+      },
+      {
+        "id": "OP-00299",
+        "data": "2026-05-26",
+        "valor_brl": 14326.29,
+        "canal": "ted",
+        "tipo": "transferencia_recebida",
+        "contraparte": "Rubi Importacao ME",
+        "observacao": ""
+      },
+      {
+        "id": "OP-00302",
+        "data": "2026-05-26",
+        "valor_brl": 18413.84,
+        "canal": "pix",
+        "tipo": "deposito",
+        "contraparte": "Cristal Atacado ME",
+        "observacao": ""
+      }
+    ]
+  },
+  "parecer": {
+    "nivel_risco": "baixo",
+    "tipologia_suspeita": "Concentração temporal de movimentações financeiras em um único dia",
+    "red_flags": [
+      "Registro de 4 operações em 2026-05-26 totalizando R$ 71.297,68, acionando a regra determinística 1.",
+      "A maior operação do dia (R$ 19.418,96) está abaixo do recorde histórico do cliente (R$ 48.045,64)."
+    ],
+    "justificativa": "Parecer preliminar baseado exclusivamente nos dados fornecidos. O cliente CLI-029 possui histórico de 16 operações totalizando R$ 191.385,77 desde 2026-03-11, com valor médio de R$ 11.961,61. O volume e os valores operados em 2026-05-26 alinham-se à magnitude geral do histórico do cliente. As regras determinísticas podem gerar falsos positivos e uma sinalização isolada não comprova irregularidade, havendo limitação de dados por ausência de informações qualitativas sobre a motivação comercial das contrapartes (Orion Trading SA, Solar Importacao LTDA, Rubi Importacao ME e Cristal Atacado ME)."
+  },
+  "metricas_chamadas": [
+    {
+      "etapa": "planejamento",
+      "latencia_segundos": 55.929,
+      "tokens_entrada": 303,
+      "tokens_saida": 132,
+      "tokens_total": 435
+    },
+    {
+      "etapa": "parecer",
+      "latencia_segundos": 1.574,
+      "tokens_entrada": 914,
+      "tokens_saida": 318,
+      "tokens_total": 1232
+    }
+  ],
+  "regras_deterministicas": {
+    "sinalizacoes_regra_1": 1,
+    "sinalizacoes_regra_2": 0,
+    "total_sinalizacoes": 1,
+    "volume_total_brl": 191385.766
+  }
+}

@@ -1,0 +1,786 @@
+[
+  {
+    "cliente_id": "CLI-014",
+    "modelo": "gemini-3.5-flash-lite",
+    "ferramentas_executadas": [
+      {
+        "nome": "historico_cliente",
+        "data": null,
+        "motivo": "Necessário para consultar o volume geral, quantidade, média, maior operação e período analisado do cliente CLI-014."
+      },
+      {
+        "nome": "perfil_canal",
+        "data": null,
+        "motivo": "Útil para avaliar se a distribuição das operações atípicas por canal ajuda a compreender o comportamento de risco."
+      }
+    ],
+    "resultados_ferramentas": {
+      "historico_cliente": {
+        "cliente_id": "CLI-014",
+        "quantidade_operacoes": 11,
+        "volume_total_brl": 80629.99,
+        "valor_medio_brl": 7330.0,
+        "mediana_brl": 2308.41,
+        "maior_operacao_brl": 23640.97,
+        "primeira_data": "2026-03-01",
+        "ultima_data": "2026-05-26"
+      },
+      "perfil_canal": [
+        {
+          "canal": "boleto",
+          "quantidade_operacoes": 2,
+          "volume_total_brl": 11226.15,
+          "percentual_operacoes": 18.18
+        },
+        {
+          "canal": "cartao",
+          "quantidade_operacoes": 1,
+          "volume_total_brl": 3587.51,
+          "percentual_operacoes": 9.09
+        },
+        {
+          "canal": "pix",
+          "quantidade_operacoes": 4,
+          "volume_total_brl": 39731.21,
+          "percentual_operacoes": 36.36
+        },
+        {
+          "canal": "ted",
+          "quantidade_operacoes": 4,
+          "volume_total_brl": 26085.12,
+          "percentual_operacoes": 36.36
+        }
+      ]
+    },
+    "parecer": {
+      "nivel_risco": "médio",
+      "tipologia_suspeita": "Concentração de operações com valores significativamente superiores à mediana histórica do cliente",
+      "red_flags": [
+        "Operação OP-00133 (2026-03-06) no valor de BRL 23.640,97 excede o limite de 5x a mediana (BRL 11.542,05).",
+        "Operação OP-00129 (2026-03-05) no valor de BRL 13.660,65 excede o limite de 5x a mediana (BRL 11.542,05).",
+        "Operação OP-00315 (2026-03-24) no valor de BRL 21.064,59 excede o limite de 5x a mediana (BRL 11.542,05)."
+      ],
+      "justificativa": "O parecer preliminar identifica disparidades estatísticas baseadas em regras determinísticas, que podem gerar falsos positivos. Foram registradas três operações cujos valores superam cinco vezes a mediana do cliente (BRL 2.308,41). O histórico total aponta 11 operações e um volume de BRL 80.629,99 distribuídos entre os canais boleto, cartão, pix e ted. Ressalta-se que uma sinalização não comprova irregularidade e os dados fornecidos apresentam limitações por não contemplarem o contexto operacional completo ou a intenção do cliente CLI-014."
+    },
+    "metricas_chamadas": [
+      {
+        "etapa": "planejamento",
+        "latencia_segundos": 187.139,
+        "tokens_entrada": 523,
+        "tokens_saida": 124,
+        "tokens_total": 647
+      },
+      {
+        "etapa": "parecer",
+        "latencia_segundos": 296.357,
+        "tokens_entrada": 996,
+        "tokens_saida": 386,
+        "tokens_total": 1382
+      }
+    ],
+    "regras_deterministicas": {
+      "sinalizacoes_regra_1": 0,
+      "sinalizacoes_regra_2": 3,
+      "total_sinalizacoes": 3,
+      "volume_total_brl": 80629.99
+    }
+  },
+  {
+    "cliente_id": "CLI-023",
+    "modelo": "gemini-3.5-flash-lite",
+    "ferramentas_executadas": [
+      {
+        "nome": "historico_cliente",
+        "data": null,
+        "motivo": "Necessário para avaliar o comportamento geral, volume, média e mediana do cliente, dado que há alertas de operações significativamente acima da mediana."
+      },
+      {
+        "nome": "operacoes_do_dia",
+        "data": "2026-04-28",
+        "motivo": "Há um alerta determinístico específico (OP-00219) associado a esta data."
+      }
+    ],
+    "resultados_ferramentas": {
+      "historico_cliente": {
+        "cliente_id": "CLI-023",
+        "quantidade_operacoes": 12,
+        "volume_total_brl": 148535.02,
+        "valor_medio_brl": 12377.92,
+        "mediana_brl": 3241.16,
+        "maior_operacao_brl": 65417.17,
+        "primeira_data": "2026-03-06",
+        "ultima_data": "2026-05-19"
+      },
+      "operacoes_do_dia": [
+        {
+          "id": "OP-00219",
+          "data": "2026-04-28",
+          "valor_brl": 41768.17,
+          "canal": "especie",
+          "tipo": "deposito",
+          "contraparte": "Rubi Importacao ME",
+          "observacao": ""
+        }
+      ]
+    },
+    "parecer": {
+      "nivel_risco": "médio",
+      "tipologia_suspeita": "Concentração de operações com valores significativamente superiores à mediana histórica do cliente",
+      "red_flags": [
+        "Operação OP-00219 no valor de R$ 41.768,17 supera o limite de 5x a mediana do cliente (R$ 16.205,80).",
+        "Operação OP-00317 no valor de R$ 65.417,17 supera o limite de 5x a mediana do cliente (R$ 16.205,80).",
+        "A maior operação registrada (R$ 65.417,17) é superior à mediana histórica de R$ 3.241,16."
+      ],
+      "justificativa": "As regras determinísticas geraram alertas devido a duas operações que ultrapassaram o limite de cinco vezes a mediana do cliente. O histórico confirma que o volume total de 12 operações é de R$ 148.535,02, com mediana de R$ 3.241,16. As ferramentas fornecem dados limitados e parciais sobre o perfil completo e a origem dos fundos. Uma sinalização não comprova irregularidade, tratando-se apenas de um alerta preliminar sujeito a falsos positivos."
+    },
+    "metricas_chamadas": [
+      {
+        "etapa": "planejamento",
+        "latencia_segundos": 1.25,
+        "tokens_entrada": 431,
+        "tokens_saida": 201,
+        "tokens_total": 632
+      },
+      {
+        "etapa": "parecer",
+        "latencia_segundos": 39.593,
+        "tokens_entrada": 762,
+        "tokens_saida": 320,
+        "tokens_total": 1082
+      }
+    ],
+    "regras_deterministicas": {
+      "sinalizacoes_regra_1": 0,
+      "sinalizacoes_regra_2": 2,
+      "total_sinalizacoes": 2,
+      "volume_total_brl": 148535.016
+    }
+  },
+  {
+    "cliente_id": "CLI-028",
+    "modelo": "gemini-3.5-flash-lite",
+    "ferramentas_executadas": [
+      {
+        "nome": "operacoes_do_dia",
+        "data": "2026-03-21",
+        "motivo": "Os alertas determinísticos indicam operações específicas com valores acima do limite na data de 2026-03-21."
+      }
+    ],
+    "resultados_ferramentas": {
+      "operacoes_do_dia": [
+        {
+          "id": "OP-00308",
+          "data": "2026-03-21",
+          "valor_brl": 27715.48,
+          "canal": "ted",
+          "tipo": "transferencia_enviada",
+          "contraparte": "Delta Trading LTDA",
+          "observacao": ""
+        },
+        {
+          "id": "OP-00307",
+          "data": "2026-03-21",
+          "valor_brl": 24875.39,
+          "canal": "ted",
+          "tipo": "transferencia_recebida",
+          "contraparte": "Estrela Assessoria LTDA",
+          "observacao": ""
+        }
+      ]
+    },
+    "parecer": {
+      "nivel_risco": "médio",
+      "tipologia_suspeita": "Movimentação financeira atípica por valor superior a cinco vezes a mediana do cliente",
+      "red_flags": [
+        "Operação OP-00308 no valor de R$ 27.715,48 excede o limite de 5x a mediana do cliente (R$ 22.151,25).",
+        "Operação OP-00307 no valor de R$ 24.875,39 excede o limite de 5x a mediana do cliente (R$ 22.151,25)."
+      ],
+      "justificativa": "As regras determinísticas geraram alertas (regra_2) para duas operações realizadas em 2026-03-21 cujos valores superam cinco vezes a mediana histórica do cliente (R$ 4.430,25). Os dados das ferramentas confirmam que a operação OP-00307 refere-se a uma transferência recebida de 'Estrela Assessoria LTDA' no valor de R$ 24.875,39 e a OP-00308 a uma transferência enviada via TED para 'Delta Trading LTDA' no valor de R$ 27.715,48. As regras determinísticas podem gerar falsos positivos. A análise baseia-se exclusivamente nas informações fornecidas, as quais possuem limitações por não abrangerem o contexto completo, histórico ampliado ou motivação das transações, ressaltando-se que uma sinalização não comprova irregularidade."
+    },
+    "metricas_chamadas": [
+      {
+        "etapa": "planejamento",
+        "latencia_segundos": 1.345,
+        "tokens_entrada": 424,
+        "tokens_saida": 85,
+        "tokens_total": 509
+      },
+      {
+        "etapa": "parecer",
+        "latencia_segundos": 1.922,
+        "tokens_entrada": 696,
+        "tokens_saida": 373,
+        "tokens_total": 1069
+      }
+    ],
+    "regras_deterministicas": {
+      "sinalizacoes_regra_1": 0,
+      "sinalizacoes_regra_2": 2,
+      "total_sinalizacoes": 2,
+      "volume_total_brl": 88750.8
+    }
+  },
+  {
+    "cliente_id": "CLI-013",
+    "modelo": "gemini-3.5-flash-lite",
+    "ferramentas_executadas": [
+      {
+        "nome": "historico_cliente",
+        "data": null,
+        "motivo": "Necessário para analisar o volume, média, mediana e o comportamento geral do cliente CLI-013 frente aos alertas de operações acima da mediana."
+      },
+      {
+        "nome": "operacoes_do_dia",
+        "data": "2026-03-06",
+        "motivo": "Há alertas determinísticos específicos (regra_2) ocorridos na data 2026-03-06 que exigem detalhamento."
+      }
+    ],
+    "resultados_ferramentas": {
+      "historico_cliente": {
+        "cliente_id": "CLI-013",
+        "quantidade_operacoes": 10,
+        "volume_total_brl": 81730.99,
+        "valor_medio_brl": 8173.1,
+        "mediana_brl": 3146.22,
+        "maior_operacao_brl": 28487.76,
+        "primeira_data": "2026-03-06",
+        "ultima_data": "2026-05-16"
+      },
+      "operacoes_do_dia": [
+        {
+          "id": "OP-00310",
+          "data": "2026-03-06",
+          "valor_brl": 28487.76,
+          "canal": "ted",
+          "tipo": "saque",
+          "contraparte": "Lumen Servicos LTDA",
+          "observacao": ""
+        },
+        {
+          "id": "OP-00309",
+          "data": "2026-03-06",
+          "valor_brl": 26754.23,
+          "canal": "ted",
+          "tipo": "deposito",
+          "contraparte": "Gama Consultoria SA",
+          "observacao": ""
+        }
+      ]
+    },
+    "parecer": {
+      "nivel_risco": "médio",
+      "tipologia_suspeita": "Concentração de operações de valor significativamente superior à mediana histórica do cliente no mesmo dia.",
+      "red_flags": [
+        "Operação OP-00310 no valor de R$ 28.487,76 supera o limite de 5x a mediana do cliente (R$ 15.731,125).",
+        "Operação OP-00309 no valor de R$ 26.754,23 supera o limite de 5x a mediana do cliente (R$ 15.731,125).",
+        "Ambas as operações ocorreram na mesma data (2026-03-06), concentrando grande parte do volume total histórico do cliente."
+      ],
+      "justificativa": "As regras determinísticas geraram alertas devido a duas operações cujos valores superaram cinco vezes a mediana do cliente. A análise das ferramentas confirma que os montantes das transações OP-00309 e OP-00310 estão muito acima do padrão mediano (R$ 3.146,22). Contudo, as regras determinísticas podem gerar falsos positivos e uma sinalização não comprova irregularidade. Há limitações nos dados, pois o escopo baseia-se em um histórico de apenas 10 operações e os dados disponíveis não permitem afirmar intenção ou ocorrência de fraude ou crime."
+    },
+    "metricas_chamadas": [
+      {
+        "etapa": "planejamento",
+        "latencia_segundos": 54.741,
+        "tokens_entrada": 428,
+        "tokens_saida": 150,
+        "tokens_total": 578
+      },
+      {
+        "etapa": "parecer",
+        "latencia_segundos": 198.302,
+        "tokens_entrada": 848,
+        "tokens_saida": 339,
+        "tokens_total": 1187
+      }
+    ],
+    "regras_deterministicas": {
+      "sinalizacoes_regra_1": 0,
+      "sinalizacoes_regra_2": 2,
+      "total_sinalizacoes": 2,
+      "volume_total_brl": 81730.99
+    }
+  },
+  {
+    "cliente_id": "CLI-005",
+    "modelo": "gemini-3.5-flash-lite",
+    "ferramentas_executadas": [
+      {
+        "nome": "historico_cliente",
+        "data": null,
+        "motivo": "Necessário para analisar a quantidade, volume, média, mediana, maior operação e período do cliente CLI-005, considerando os alertas de desvio na mediana."
+      },
+      {
+        "nome": "operacoes_do_dia",
+        "data": "2026-04-12",
+        "motivo": "Existe um alerta determinístico com data específica (OP-00049 em 2026-04-12) que ultrapassa o limite de 5x a mediana."
+      }
+    ],
+    "resultados_ferramentas": {
+      "historico_cliente": {
+        "cliente_id": "CLI-005",
+        "quantidade_operacoes": 11,
+        "volume_total_brl": 64742.66,
+        "valor_medio_brl": 5885.7,
+        "mediana_brl": 2144.18,
+        "maior_operacao_brl": 30743.97,
+        "primeira_data": "2026-03-14",
+        "ultima_data": "2026-05-07"
+      },
+      "operacoes_do_dia": [
+        {
+          "id": "OP-00049",
+          "data": "2026-04-12",
+          "valor_brl": 11988.17,
+          "canal": "especie",
+          "tipo": "transferencia_recebida",
+          "contraparte": "Vertice Trading SA",
+          "observacao": ""
+        }
+      ]
+    },
+    "parecer": {
+      "nivel_risco": "médio",
+      "tipologia_suspeita": "Concentração de volume e operações com valor acima da mediana histórica do cliente",
+      "red_flags": [
+        "Operação OP-00043 no valor de BRL 30.743,97 excede o limite de 5x a mediana histórica (BRL 10.720,90).",
+        "Operação OP-00049 no valor de BRL 11.988,17 excede o limite de 5x a mediana histórica (BRL 10.720,90)."
+      ],
+      "justificativa": "Parecer preliminar baseado exclusivamente nos alertas determinísticos e nos dados fornecidos. Foram identificadas duas operações com valores superiores a cinco vezes a mediana do cliente. O histórico apresenta 11 operações totalizando BRL 64.742,66 entre 2026-03-14 e 2026-05-07. As regras determinísticas geram falsos positivos e a análise das ferramentas indica que uma sinalização não comprova irregularidade. Há limitações na quantidade e profundidade dos dados transacionais disponíveis para contextualizar a contraparte e a finalidade econômica das transferências."
+    },
+    "metricas_chamadas": [
+      {
+        "etapa": "planejamento",
+        "latencia_segundos": 1.55,
+        "tokens_entrada": 422,
+        "tokens_saida": 247,
+        "tokens_total": 669
+      },
+      {
+        "etapa": "parecer",
+        "latencia_segundos": 50.621,
+        "tokens_entrada": 753,
+        "tokens_saida": 298,
+        "tokens_total": 1051
+      }
+    ],
+    "regras_deterministicas": {
+      "sinalizacoes_regra_1": 0,
+      "sinalizacoes_regra_2": 2,
+      "total_sinalizacoes": 2,
+      "volume_total_brl": 64742.66
+    }
+  },
+  {
+    "cliente_id": "CLI-026",
+    "modelo": "gemini-3.5-flash-lite",
+    "ferramentas_executadas": [
+      {
+        "nome": "historico_cliente",
+        "data": null,
+        "motivo": "Necessário para avaliar o comportamento geral do cliente (quantidade, volume, média, mediana) em relação aos alertas de operações acima da mediana."
+      },
+      {
+        "nome": "operacoes_do_dia",
+        "data": "2026-05-17",
+        "motivo": "Há um alerta determinístico relevante na regra_2 associado a esta data específica."
+      }
+    ],
+    "resultados_ferramentas": {
+      "historico_cliente": {
+        "cliente_id": "CLI-026",
+        "quantidade_operacoes": 12,
+        "volume_total_brl": 54729.28,
+        "valor_medio_brl": 4560.77,
+        "mediana_brl": 2032.93,
+        "maior_operacao_brl": 21261.01,
+        "primeira_data": "2026-03-01",
+        "ultima_data": "2026-05-17"
+      },
+      "operacoes_do_dia": [
+        {
+          "id": "OP-00253",
+          "data": "2026-05-17",
+          "valor_brl": 21261.01,
+          "canal": "pix",
+          "tipo": "pagamento",
+          "contraparte": "Solar Industria LTDA",
+          "observacao": ""
+        },
+        {
+          "id": "OP-00246",
+          "data": "2026-05-17",
+          "valor_brl": 1563.31,
+          "canal": "cartao",
+          "tipo": "saque",
+          "contraparte": "Farol Industria LTDA",
+          "observacao": ""
+        }
+      ]
+    },
+    "parecer": {
+      "nivel_risco": "médio",
+      "tipologia_suspeita": "Concentração de operações com valores acima de 5 vezes a mediana histórica",
+      "red_flags": [
+        "Operação OP-00253 no valor de BRL 21.261,01 excede o limite de 5x a mediana do cliente (BRL 10.164,65).",
+        "Operação OP-00247 no valor de BRL 12.518,30 excede o limite de 5x a mediana do cliente (BRL 10.164,65)."
+      ],
+      "justificativa": "Parecer preliminar baseado exclusivamente nos alertas determinísticos e nos dados fornecidos. Foram identificadas duas operações acima do limite estatístico de 5 vezes a mediana do cliente. As regras determinísticas geram falsos positivos e uma sinalização isolada não comprova irregularidade, fraude ou crime. O histórico do cliente abrange 12 operações totalizando BRL 54.729,28 no período analisado, havendo limitações analíticas decorrentes da ausência de dados cadastrais detalhados ou contexto transacional aprofundado."
+    },
+    "metricas_chamadas": [
+      {
+        "etapa": "planejamento",
+        "latencia_segundos": 13.017,
+        "tokens_entrada": 423,
+        "tokens_saida": 193,
+        "tokens_total": 616
+      },
+      {
+        "etapa": "parecer",
+        "latencia_segundos": 32.592,
+        "tokens_entrada": 842,
+        "tokens_saida": 285,
+        "tokens_total": 1127
+      }
+    ],
+    "regras_deterministicas": {
+      "sinalizacoes_regra_1": 0,
+      "sinalizacoes_regra_2": 2,
+      "total_sinalizacoes": 2,
+      "volume_total_brl": 54729.28
+    }
+  },
+  {
+    "cliente_id": "CLI-001",
+    "modelo": "gemini-3.5-flash-lite",
+    "ferramentas_executadas": [
+      {
+        "nome": "historico_cliente",
+        "data": null,
+        "motivo": "Necessário para consultar o volume, média, mediana e histórico geral do cliente para contextualizar os alertas determinísticos de operações acima da mediana."
+      },
+      {
+        "nome": "operacoes_do_dia",
+        "data": "2026-03-15",
+        "motivo": "Há uma data específica relevante ('2026-03-15') associada à operação OP-00008 nos alertas determinísticos."
+      }
+    ],
+    "resultados_ferramentas": {
+      "historico_cliente": {
+        "cliente_id": "CLI-001",
+        "quantidade_operacoes": 10,
+        "volume_total_brl": 47947.81,
+        "valor_medio_brl": 4794.78,
+        "mediana_brl": 1609.15,
+        "maior_operacao_brl": 25110.15,
+        "primeira_data": "2026-03-06",
+        "ultima_data": "2026-05-26"
+      },
+      "operacoes_do_dia": [
+        {
+          "id": "OP-00008",
+          "data": "2026-03-15",
+          "valor_brl": 25110.15,
+          "canal": "especie",
+          "tipo": "deposito",
+          "contraparte": "Beta Transportes ME",
+          "observacao": ""
+        }
+      ]
+    },
+    "parecer": {
+      "nivel_risco": "médio",
+      "tipologia_suspeita": "Concentração de valor atípico em relação ao padrão histórico do cliente",
+      "red_flags": [
+        "Operação OP-00008 no valor de BRL 25.110,15 excede o limite de 5x a mediana do cliente (BRL 8.045,775).",
+        "Operação OP-00006 no valor de BRL 9.490,55 excede o limite de 5x a mediana do cliente, com dado de data ausente nos registros.",
+        "A maior operação registrada (BRL 25.110,15) representa mais da metade do volume total histórico do cliente (BRL 47.947,81)."
+      ],
+      "justificativa": "Parecer preliminar baseado exclusivamente nos alertas determinísticos e nas ferramentas fornecidas. Foram identificadas duas operações acima do limite estatístico de 5 vezes a mediana do cliente, incluindo uma transação sem data informada. Como regras determinísticas podem gerar falsos positivos e uma sinalização não comprova irregularidade, o risco foi classificado como médio. Os dados disponíveis limitam-se a 10 operações no histórico e a detalhes de contraparte apenas para uma das operações, havendo ausência de informações temporais completas para todos os eventos sinalizados."
+    },
+    "metricas_chamadas": [
+      {
+        "etapa": "planejamento",
+        "latencia_segundos": 63.141,
+        "tokens_entrada": 415,
+        "tokens_saida": 149,
+        "tokens_total": 564
+      },
+      {
+        "etapa": "parecer",
+        "latencia_segundos": 1.983,
+        "tokens_entrada": 743,
+        "tokens_saida": 328,
+        "tokens_total": 1071
+      }
+    ],
+    "regras_deterministicas": {
+      "sinalizacoes_regra_1": 0,
+      "sinalizacoes_regra_2": 2,
+      "total_sinalizacoes": 2,
+      "volume_total_brl": 47947.81
+    }
+  },
+  {
+    "cliente_id": "CLI-029",
+    "modelo": "gemini-3.5-flash-lite",
+    "ferramentas_executadas": [
+      {
+        "nome": "historico_cliente",
+        "data": null,
+        "motivo": "Necessário para analisar a quantidade, volume, média, mediana, maior operação e período analisado do cliente CLI-029."
+      },
+      {
+        "nome": "operacoes_do_dia",
+        "data": "2026-05-26",
+        "motivo": "Há uma data específica relevante identificada nos alertas determinísticos (regra_1)."
+      }
+    ],
+    "resultados_ferramentas": {
+      "historico_cliente": {
+        "cliente_id": "CLI-029",
+        "quantidade_operacoes": 16,
+        "volume_total_brl": 191385.77,
+        "valor_medio_brl": 11961.61,
+        "mediana_brl": 10337.49,
+        "maior_operacao_brl": 48045.64,
+        "primeira_data": "2026-03-11",
+        "ultima_data": "2026-05-26"
+      },
+      "operacoes_do_dia": [
+        {
+          "id": "OP-00301",
+          "data": "2026-05-26",
+          "valor_brl": 19418.96,
+          "canal": "ted",
+          "tipo": "saque",
+          "contraparte": "Orion Trading SA",
+          "observacao": ""
+        },
+        {
+          "id": "OP-00300",
+          "data": "2026-05-26",
+          "valor_brl": 19138.59,
+          "canal": "ted",
+          "tipo": "deposito",
+          "contraparte": "Solar Importacao LTDA",
+          "observacao": ""
+        },
+        {
+          "id": "OP-00299",
+          "data": "2026-05-26",
+          "valor_brl": 14326.29,
+          "canal": "ted",
+          "tipo": "transferencia_recebida",
+          "contraparte": "Rubi Importacao ME",
+          "observacao": ""
+        },
+        {
+          "id": "OP-00302",
+          "data": "2026-05-26",
+          "valor_brl": 18413.84,
+          "canal": "pix",
+          "tipo": "deposito",
+          "contraparte": "Cristal Atacado ME",
+          "observacao": ""
+        }
+      ]
+    },
+    "parecer": {
+      "nivel_risco": "baixo",
+      "tipologia_suspeita": "Concentração temporal de movimentações financeiras em um único dia",
+      "red_flags": [
+        "Registro de 4 operações em 2026-05-26 totalizando R$ 71.297,68, acionando a regra determinística 1.",
+        "A maior operação do dia (R$ 19.418,96) está abaixo do recorde histórico do cliente (R$ 48.045,64)."
+      ],
+      "justificativa": "Parecer preliminar baseado exclusivamente nos dados fornecidos. O cliente CLI-029 possui histórico de 16 operações totalizando R$ 191.385,77 desde 2026-03-11, com valor médio de R$ 11.961,61. O volume e os valores operados em 2026-05-26 alinham-se à magnitude geral do histórico do cliente. As regras determinísticas podem gerar falsos positivos e uma sinalização isolada não comprova irregularidade, havendo limitação de dados por ausência de informações qualitativas sobre a motivação comercial das contrapartes (Orion Trading SA, Solar Importacao LTDA, Rubi Importacao ME e Cristal Atacado ME)."
+    },
+    "metricas_chamadas": [
+      {
+        "etapa": "planejamento",
+        "latencia_segundos": 55.929,
+        "tokens_entrada": 303,
+        "tokens_saida": 132,
+        "tokens_total": 435
+      },
+      {
+        "etapa": "parecer",
+        "latencia_segundos": 1.574,
+        "tokens_entrada": 914,
+        "tokens_saida": 318,
+        "tokens_total": 1232
+      }
+    ],
+    "regras_deterministicas": {
+      "sinalizacoes_regra_1": 1,
+      "sinalizacoes_regra_2": 0,
+      "total_sinalizacoes": 1,
+      "volume_total_brl": 191385.766
+    }
+  },
+  {
+    "cliente_id": "CLI-017",
+    "modelo": "gemini-3.5-flash-lite",
+    "ferramentas_executadas": [
+      {
+        "nome": "historico_cliente",
+        "data": null,
+        "motivo": "Necessário para consultar o volume, média, mediana e histórico geral do cliente para contextualizar o alerta recebido."
+      },
+      {
+        "nome": "operacoes_do_dia",
+        "data": "2026-03-08",
+        "motivo": "Há uma data específica relevante identificada na regra_1 (2026-03-08) que requer análise detalhada das operações do dia."
+      }
+    ],
+    "resultados_ferramentas": {
+      "historico_cliente": {
+        "cliente_id": "CLI-017",
+        "quantidade_operacoes": 13,
+        "volume_total_brl": 121391.37,
+        "valor_medio_brl": 9337.8,
+        "mediana_brl": 9593.32,
+        "maior_operacao_brl": 18761.22,
+        "primeira_data": "2026-03-08",
+        "ultima_data": "2026-05-24"
+      },
+      "operacoes_do_dia": [
+        {
+          "id": "OP-00303",
+          "data": "2026-03-08",
+          "valor_brl": 14352.98,
+          "canal": "ted",
+          "tipo": "saque",
+          "contraparte": "Lumen Industria ME",
+          "observacao": ""
+        },
+        {
+          "id": "OP-00305",
+          "data": "2026-03-08",
+          "valor_brl": 16158.41,
+          "canal": "pix",
+          "tipo": "pagamento",
+          "contraparte": "Rubi Transportes SA",
+          "observacao": ""
+        },
+        {
+          "id": "OP-00306",
+          "data": "2026-03-08",
+          "valor_brl": 15401.27,
+          "canal": "pix",
+          "tipo": "transferencia_enviada",
+          "contraparte": "Boreal Comercio ME",
+          "observacao": ""
+        },
+        {
+          "id": "OP-00304",
+          "data": "2026-03-08",
+          "valor_brl": 18761.22,
+          "canal": "ted",
+          "tipo": "deposito",
+          "contraparte": "Lumen Comercio SA",
+          "observacao": ""
+        }
+      ]
+    },
+    "parecer": {
+      "nivel_risco": "baixo",
+      "tipologia_suspeita": "Concentração de volume transacional em único dia em relação ao histórico total do cliente",
+      "red_flags": [
+        "No dia 2026-03-08 foram realizadas 4 operações totalizando R$ 64.673,88, o que representa mais de 53% do volume total histórico do cliente (R$ 121.391,37)."
+      ],
+      "justificativa": "O alerta determinístico da regra_1 foi disparado devido ao volume e quantidade de operações concentradas na data de 2026-03-08. No entanto, os resultados das ferramentas mostram que o cliente possui um histórico total de 13 operações distribuídas até a data de 2026-05-24, com valor médio de R$ 9.337,80 e maior operação de R$ 18.761,22, patamares compatíveis com os montantes movimentados no dia do alerta. Destaca-se que regras determinísticas podem gerar falsos positivos e uma única sinalização não comprova irregularidade. Há limitações na análise devido à ausência de dados cadastrais, perfil socioeconômico e finalidade declarada das transações.",
+      "limitacoes_dados": "Ausência de dados cadastrais, perfil financeiro declarado, finalidade das operações e informações sobre a origem e destino detalhadas dos recursos."
+    },
+    "metricas_chamadas": [
+      {
+        "etapa": "planejamento",
+        "latencia_segundos": 0.944,
+        "tokens_entrada": 313,
+        "tokens_saida": 149,
+        "tokens_total": 462
+      },
+      {
+        "etapa": "parecer",
+        "latencia_segundos": 86.32,
+        "tokens_entrada": 918,
+        "tokens_saida": 338,
+        "tokens_total": 1256
+      }
+    ],
+    "regras_deterministicas": {
+      "sinalizacoes_regra_1": 1,
+      "sinalizacoes_regra_2": 0,
+      "total_sinalizacoes": 1,
+      "volume_total_brl": 121391.37
+    }
+  },
+  {
+    "cliente_id": "CLI-030",
+    "modelo": "gemini-3.5-flash-lite",
+    "ferramentas_executadas": [
+      {
+        "nome": "historico_cliente",
+        "data": null,
+        "motivo": "Necessário para avaliar o comportamento geral, volume e histórico de operações do cliente frente ao alerta gerado."
+      },
+      {
+        "nome": "operacoes_do_dia",
+        "data": "2026-03-08",
+        "motivo": "Há uma data específica relevante informada no alerta determinístico (regra_2)."
+      }
+    ],
+    "resultados_ferramentas": {
+      "historico_cliente": {
+        "cliente_id": "CLI-030",
+        "quantidade_operacoes": 9,
+        "volume_total_brl": 117780.89,
+        "valor_medio_brl": 13086.77,
+        "mediana_brl": 4611.07,
+        "maior_operacao_brl": 77628.19,
+        "primeira_data": "2026-03-08",
+        "ultima_data": "2026-05-19"
+      },
+      "operacoes_do_dia": [
+        {
+          "id": "OP-00313",
+          "data": "2026-03-08",
+          "valor_brl": 77628.186,
+          "canal": "ted",
+          "tipo": "transferencia_recebida",
+          "contraparte": "Aurora Servicos SA",
+          "observacao": "remessa internacional"
+        }
+      ]
+    },
+    "parecer": {
+      "nivel_risco": "médio",
+      "tipologia_suspeita": "Operação com valor significativamente superior à mediana histórica do cliente",
+      "red_flags": [
+        "Operação OP-00313 no valor de BRL 77.628,19 excede o limite de 5x a mediana do cliente (BRL 23.055,35)."
+      ],
+      "justificativa": "O alerta determinístico da regra 2 foi disparado devido a uma única operação recebida (OP-00313) em 2026-03-08, cujo valor é superior à mediana histórica (BRL 4.611,07). No entanto, regras determinísticas podem gerar falsos positivos e a ocorrência de uma sinalização não comprova irregularidade. Os dados fornecidos limitam-se ao histórico de 9 operações e às informações da operação do dia, sem evidências adicionais de intenção ou irregularidade."
+    },
+    "metricas_chamadas": [
+      {
+        "etapa": "planejamento",
+        "latencia_segundos": 2.504,
+        "tokens_entrada": 326,
+        "tokens_saida": 131,
+        "tokens_total": 457
+      },
+      {
+        "etapa": "parecer",
+        "latencia_segundos": 1.415,
+        "tokens_entrada": 663,
+        "tokens_saida": 231,
+        "tokens_total": 894
+      }
+    ],
+    "regras_deterministicas": {
+      "sinalizacoes_regra_1": 0,
+      "sinalizacoes_regra_2": 1,
+      "total_sinalizacoes": 1,
+      "volume_total_brl": 117780.886
+    }
+  }
+]

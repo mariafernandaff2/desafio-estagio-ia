@@ -1,0 +1,21 @@
+cliente_id,modelo,etapa,latencia_segundos,tokens_entrada,tokens_saida,tokens_total,custo_usd,tipo_custo
+CLI-014,gemini-3.5-flash-lite,planejamento,187.139,523,124,647,0.0,Camada gratuita
+CLI-014,gemini-3.5-flash-lite,parecer,296.357,996,386,1382,0.0,Camada gratuita
+CLI-023,gemini-3.5-flash-lite,planejamento,1.25,431,201,632,0.0,Camada gratuita
+CLI-023,gemini-3.5-flash-lite,parecer,39.593,762,320,1082,0.0,Camada gratuita
+CLI-028,gemini-3.5-flash-lite,planejamento,1.345,424,85,509,0.0,Camada gratuita
+CLI-028,gemini-3.5-flash-lite,parecer,1.922,696,373,1069,0.0,Camada gratuita
+CLI-013,gemini-3.5-flash-lite,planejamento,54.741,428,150,578,0.0,Camada gratuita
+CLI-013,gemini-3.5-flash-lite,parecer,198.302,848,339,1187,0.0,Camada gratuita
+CLI-005,gemini-3.5-flash-lite,planejamento,1.55,422,247,669,0.0,Camada gratuita
+CLI-005,gemini-3.5-flash-lite,parecer,50.621,753,298,1051,0.0,Camada gratuita
+CLI-026,gemini-3.5-flash-lite,planejamento,13.017,423,193,616,0.0,Camada gratuita
+CLI-026,gemini-3.5-flash-lite,parecer,32.592,842,285,1127,0.0,Camada gratuita
+CLI-001,gemini-3.5-flash-lite,planejamento,63.141,415,149,564,0.0,Camada gratuita
+CLI-001,gemini-3.5-flash-lite,parecer,1.983,743,328,1071,0.0,Camada gratuita
+CLI-029,gemini-3.5-flash-lite,planejamento,55.929,303,132,435,0.0,Camada gratuita
+CLI-029,gemini-3.5-flash-lite,parecer,1.574,914,318,1232,0.0,Camada gratuita
+CLI-017,gemini-3.5-flash-lite,planejamento,0.944,313,149,462,0.0,Camada gratuita
+CLI-017,gemini-3.5-flash-lite,parecer,86.32,918,338,1256,0.0,Camada gratuita
+CLI-030,gemini-3.5-flash-lite,planejamento,2.504,326,131,457,0.0,Camada gratuita
+CLI-030,gemini-3.5-flash-lite,parecer,1.415,663,231,894,0.0,Camada gratuita

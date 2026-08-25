@@ -1,0 +1,70 @@
+{
+  "cliente_id": "CLI-005",
+  "modelo": "gemini-3.5-flash-lite",
+  "ferramentas_executadas": [
+    {
+      "nome": "historico_cliente",
+      "data": null,
+      "motivo": "Necessário para analisar a quantidade, volume, média, mediana, maior operação e período do cliente CLI-005, considerando os alertas de desvio na mediana."
+    },
+    {
+      "nome": "operacoes_do_dia",
+      "data": "2026-04-12",
+      "motivo": "Existe um alerta determinístico com data específica (OP-00049 em 2026-04-12) que ultrapassa o limite de 5x a mediana."
+    }
+  ],
+  "resultados_ferramentas": {
+    "historico_cliente": {
+      "cliente_id": "CLI-005",
+      "quantidade_operacoes": 11,
+      "volume_total_brl": 64742.66,
+      "valor_medio_brl": 5885.7,
+      "mediana_brl": 2144.18,
+      "maior_operacao_brl": 30743.97,
+      "primeira_data": "2026-03-14",
+      "ultima_data": "2026-05-07"
+    },
+    "operacoes_do_dia": [
+      {
+        "id": "OP-00049",
+        "data": "2026-04-12",
+        "valor_brl": 11988.17,
+        "canal": "especie",
+        "tipo": "transferencia_recebida",
+        "contraparte": "Vertice Trading SA",
+        "observacao": ""
+      }
+    ]
+  },
+  "parecer": {
+    "nivel_risco": "médio",
+    "tipologia_suspeita": "Concentração de volume e operações com valor acima da mediana histórica do cliente",
+    "red_flags": [
+      "Operação OP-00043 no valor de BRL 30.743,97 excede o limite de 5x a mediana histórica (BRL 10.720,90).",
+      "Operação OP-00049 no valor de BRL 11.988,17 excede o limite de 5x a mediana histórica (BRL 10.720,90)."
+    ],
+    "justificativa": "Parecer preliminar baseado exclusivamente nos alertas determinísticos e nos dados fornecidos. Foram identificadas duas operações com valores superiores a cinco vezes a mediana do cliente. O histórico apresenta 11 operações totalizando BRL 64.742,66 entre 2026-03-14 e 2026-05-07. As regras determinísticas geram falsos positivos e a análise das ferramentas indica que uma sinalização não comprova irregularidade. Há limitações na quantidade e profundidade dos dados transacionais disponíveis para contextualizar a contraparte e a finalidade econômica das transferências."
+  },
+  "metricas_chamadas": [
+    {
+      "etapa": "planejamento",
+      "latencia_segundos": 1.55,
+      "tokens_entrada": 422,
+      "tokens_saida": 247,
+      "tokens_total": 669
+    },
+    {
+      "etapa": "parecer",
+      "latencia_segundos": 50.621,
+      "tokens_entrada": 753,
+      "tokens_saida": 298,
+      "tokens_total": 1051
+    }
+  ],
+  "regras_deterministicas": {
+    "sinalizacoes_regra_1": 0,
+    "sinalizacoes_regra_2": 2,
+    "total_sinalizacoes": 2,
+    "volume_total_brl": 64742.66
+  }
+}

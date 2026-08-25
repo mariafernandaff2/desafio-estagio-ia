@@ -1,0 +1,86 @@
+{
+  "cliente_id": "CLI-014",
+  "modelo": "gemini-3.5-flash-lite",
+  "ferramentas_executadas": [
+    {
+      "nome": "historico_cliente",
+      "data": null,
+      "motivo": "Necessário para consultar o volume geral, quantidade, média, maior operação e período analisado do cliente CLI-014."
+    },
+    {
+      "nome": "perfil_canal",
+      "data": null,
+      "motivo": "Útil para avaliar se a distribuição das operações atípicas por canal ajuda a compreender o comportamento de risco."
+    }
+  ],
+  "resultados_ferramentas": {
+    "historico_cliente": {
+      "cliente_id": "CLI-014",
+      "quantidade_operacoes": 11,
+      "volume_total_brl": 80629.99,
+      "valor_medio_brl": 7330.0,
+      "mediana_brl": 2308.41,
+      "maior_operacao_brl": 23640.97,
+      "primeira_data": "2026-03-01",
+      "ultima_data": "2026-05-26"
+    },
+    "perfil_canal": [
+      {
+        "canal": "boleto",
+        "quantidade_operacoes": 2,
+        "volume_total_brl": 11226.15,
+        "percentual_operacoes": 18.18
+      },
+      {
+        "canal": "cartao",
+        "quantidade_operacoes": 1,
+        "volume_total_brl": 3587.51,
+        "percentual_operacoes": 9.09
+      },
+      {
+        "canal": "pix",
+        "quantidade_operacoes": 4,
+        "volume_total_brl": 39731.21,
+        "percentual_operacoes": 36.36
+      },
+      {
+        "canal": "ted",
+        "quantidade_operacoes": 4,
+        "volume_total_brl": 26085.12,
+        "percentual_operacoes": 36.36
+      }
+    ]
+  },
+  "parecer": {
+    "nivel_risco": "médio",
+    "tipologia_suspeita": "Concentração de operações com valores significativamente superiores à mediana histórica do cliente",
+    "red_flags": [
+      "Operação OP-00133 (2026-03-06) no valor de BRL 23.640,97 excede o limite de 5x a mediana (BRL 11.542,05).",
+      "Operação OP-00129 (2026-03-05) no valor de BRL 13.660,65 excede o limite de 5x a mediana (BRL 11.542,05).",
+      "Operação OP-00315 (2026-03-24) no valor de BRL 21.064,59 excede o limite de 5x a mediana (BRL 11.542,05)."
+    ],
+    "justificativa": "O parecer preliminar identifica disparidades estatísticas baseadas em regras determinísticas, que podem gerar falsos positivos. Foram registradas três operações cujos valores superam cinco vezes a mediana do cliente (BRL 2.308,41). O histórico total aponta 11 operações e um volume de BRL 80.629,99 distribuídos entre os canais boleto, cartão, pix e ted. Ressalta-se que uma sinalização não comprova irregularidade e os dados fornecidos apresentam limitações por não contemplarem o contexto operacional completo ou a intenção do cliente CLI-014."
+  },
+  "metricas_chamadas": [
+    {
+      "etapa": "planejamento",
+      "latencia_segundos": 187.139,
+      "tokens_entrada": 523,
+      "tokens_saida": 124,
+      "tokens_total": 647
+    },
+    {
+      "etapa": "parecer",
+      "latencia_segundos": 296.357,
+      "tokens_entrada": 996,
+      "tokens_saida": 386,
+      "tokens_total": 1382
+    }
+  ],
+  "regras_deterministicas": {
+    "sinalizacoes_regra_1": 0,
+    "sinalizacoes_regra_2": 3,
+    "total_sinalizacoes": 3,
+    "volume_total_brl": 80629.99
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "cliente_id": "CLI-013",
+  "modelo": "gemini-3.5-flash-lite",
+  "ferramentas_executadas": [
+    {
+      "nome": "historico_cliente",
+      "data": null,
+      "motivo": "Necessário para analisar o volume, média, mediana e o comportamento geral do cliente CLI-013 frente aos alertas de operações acima da mediana."
+    },
+    {
+      "nome": "operacoes_do_dia",
+      "data": "2026-03-06",
+      "motivo": "Há alertas determinísticos específicos (regra_2) ocorridos na data 2026-03-06 que exigem detalhamento."
+    }
+  ],
+  "resultados_ferramentas": {
+    "historico_cliente": {
+      "cliente_id": "CLI-013",
+      "quantidade_operacoes": 10,
+      "volume_total_brl": 81730.99,
+      "valor_medio_brl": 8173.1,
+      "mediana_brl": 3146.22,
+      "maior_operacao_brl": 28487.76,
+      "primeira_data": "2026-03-06",
+      "ultima_data": "2026-05-16"
+    },
+    "operacoes_do_dia": [
+      {
+        "id": "OP-00310",
+        "data": "2026-03-06",
+        "valor_brl": 28487.76,
+        "canal": "ted",
+        "tipo": "saque",
+        "contraparte": "Lumen Servicos LTDA",
+        "observacao": ""
+      },
+      {
+        "id": "OP-00309",
+        "data": "2026-03-06",
+        "valor_brl": 26754.23,
+        "canal": "ted",
+        "tipo": "deposito",
+        "contraparte": "Gama Consultoria SA",
+        "observacao": ""
+      }
+    ]
+  },
+  "parecer": {
+    "nivel_risco": "médio",
+    "tipologia_suspeita": "Concentração de operações de valor significativamente superior à mediana histórica do cliente no mesmo dia.",
+    "red_flags": [
+      "Operação OP-00310 no valor de R$ 28.487,76 supera o limite de 5x a mediana do cliente (R$ 15.731,125).",
+      "Operação OP-00309 no valor de R$ 26.754,23 supera o limite de 5x a mediana do cliente (R$ 15.731,125).",
+      "Ambas as operações ocorreram na mesma data (2026-03-06), concentrando grande parte do volume total histórico do cliente."
+    ],
+    "justificativa": "As regras determinísticas geraram alertas devido a duas operações cujos valores superaram cinco vezes a mediana do cliente. A análise das ferramentas confirma que os montantes das transações OP-00309 e OP-00310 estão muito acima do padrão mediano (R$ 3.146,22). Contudo, as regras determinísticas podem gerar falsos positivos e uma sinalização não comprova irregularidade. Há limitações nos dados, pois o escopo baseia-se em um histórico de apenas 10 operações e os dados disponíveis não permitem afirmar intenção ou ocorrência de fraude ou crime."
+  },
+  "metricas_chamadas": [
+    {
+      "etapa": "planejamento",
+      "latencia_segundos": 54.741,
+      "tokens_entrada": 428,
+      "tokens_saida": 150,
+      "tokens_total": 578
+    },
+    {
+      "etapa": "parecer",
+      "latencia_segundos": 198.302,
+      "tokens_entrada": 848,
+      "tokens_saida": 339,
+      "tokens_total": 1187
+    }
+  ],
+  "regras_deterministicas": {
+    "sinalizacoes_regra_1": 0,
+    "sinalizacoes_regra_2": 2,
+    "total_sinalizacoes": 2,
+    "volume_total_brl": 81730.99
+  }
+}

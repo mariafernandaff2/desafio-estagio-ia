@@ -1,0 +1,3 @@
+etapa,quantidade_chamadas,latencia_media_segundos,tokens_entrada,tokens_saida,tokens_total,custo_total_usd
+parecer,10,71.0679,8135,3216,11351,0.0
+planejamento,10,38.156,4008,1561,5569,0.0

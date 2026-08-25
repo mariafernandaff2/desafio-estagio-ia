@@ -1,0 +1,71 @@
+{
+  "cliente_id": "CLI-001",
+  "modelo": "gemini-3.5-flash-lite",
+  "ferramentas_executadas": [
+    {
+      "nome": "historico_cliente",
+      "data": null,
+      "motivo": "Necessário para consultar o volume, média, mediana e histórico geral do cliente para contextualizar os alertas determinísticos de operações acima da mediana."
+    },
+    {
+      "nome": "operacoes_do_dia",
+      "data": "2026-03-15",
+      "motivo": "Há uma data específica relevante ('2026-03-15') associada à operação OP-00008 nos alertas determinísticos."
+    }
+  ],
+  "resultados_ferramentas": {
+    "historico_cliente": {
+      "cliente_id": "CLI-001",
+      "quantidade_operacoes": 10,
+      "volume_total_brl": 47947.81,
+      "valor_medio_brl": 4794.78,
+      "mediana_brl": 1609.15,
+      "maior_operacao_brl": 25110.15,
+      "primeira_data": "2026-03-06",
+      "ultima_data": "2026-05-26"
+    },
+    "operacoes_do_dia": [
+      {
+        "id": "OP-00008",
+        "data": "2026-03-15",
+        "valor_brl": 25110.15,
+        "canal": "especie",
+        "tipo": "deposito",
+        "contraparte": "Beta Transportes ME",
+        "observacao": ""
+      }
+    ]
+  },
+  "parecer": {
+    "nivel_risco": "médio",
+    "tipologia_suspeita": "Concentração de valor atípico em relação ao padrão histórico do cliente",
+    "red_flags": [
+      "Operação OP-00008 no valor de BRL 25.110,15 excede o limite de 5x a mediana do cliente (BRL 8.045,775).",
+      "Operação OP-00006 no valor de BRL 9.490,55 excede o limite de 5x a mediana do cliente, com dado de data ausente nos registros.",
+      "A maior operação registrada (BRL 25.110,15) representa mais da metade do volume total histórico do cliente (BRL 47.947,81)."
+    ],
+    "justificativa": "Parecer preliminar baseado exclusivamente nos alertas determinísticos e nas ferramentas fornecidas. Foram identificadas duas operações acima do limite estatístico de 5 vezes a mediana do cliente, incluindo uma transação sem data informada. Como regras determinísticas podem gerar falsos positivos e uma sinalização não comprova irregularidade, o risco foi classificado como médio. Os dados disponíveis limitam-se a 10 operações no histórico e a detalhes de contraparte apenas para uma das operações, havendo ausência de informações temporais completas para todos os eventos sinalizados."
+  },
+  "metricas_chamadas": [
+    {
+      "etapa": "planejamento",
+      "latencia_segundos": 63.141,
+      "tokens_entrada": 415,
+      "tokens_saida": 149,
+      "tokens_total": 564
+    },
+    {
+      "etapa": "parecer",
+      "latencia_segundos": 1.983,
+      "tokens_entrada": 743,
+      "tokens_saida": 328,
+      "tokens_total": 1071
+    }
+  ],
+  "regras_deterministicas": {
+    "sinalizacoes_regra_1": 0,
+    "sinalizacoes_regra_2": 2,
+    "total_sinalizacoes": 2,
+    "volume_total_brl": 47947.81
+  }
+}

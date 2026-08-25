@@ -90,17 +90,179 @@ Também foram registrados modelo, tempo, número de tentativas e tokens. Indispo
 
 
 ## 4. Decisões do Nível 2
+### Reutilização do tratamento e das regras
+
+O tratamento aplicado no Nível 1 foi reutilizado na base do Nível 2, incluindo remoção de duplicidades, conversão de datas, normalização de variáveis categóricas e conversão das operações em USD para BRL. A base passou de 322 para 317 registros após a remoção de cinco duplicidades integrais. Também foram identificadas seis operações com datas ausentes ou inválidas.
+
+Se o projeto fosse refeito desde o início, a limpeza e as regras seriam implementadas como funções reutilizáveis já no Nível 1. Isso reduziria a repetição entre o notebook e os arquivos do Nível 2. Nesta entrega, o tratamento necessário às ferramentas foi encapsulado internamente em `tools.py`, respeitando a estrutura de arquivos solicitada.
+
+### Critério do ranking
+
+O número total de sinalizações foi calculado pela soma das ocorrências das duas regras. O ranking foi ordenado primeiro pelo total de sinalizações e, nos empates, pelo volume total movimentado em BRL.
+
+
+O agente foi dividido em duas etapas. Na primeira chamada, o modelo recebe os alertas determinísticos e escolhe somente as ferramentas necessárias. Na segunda, utiliza os resultados consultados para elaborar o parecer. Essa separação evita chamar automaticamente todas as ferramentas para todos os clientes.
+
+Foram realizadas duas chamadas ao modelo por cliente: uma de planejamento e outra de geração do parecer. A execução dos dez clientes resultou em 20 chamadas. Foram registrados tokens de entrada, tokens de saída e latência de cada chamada. Como a execução foi realizada na camada gratuita do provedor, o custo monetário observado foi zero, mas o consumo de tokens foi preservado como medida de utilização.
+
+### Critério de confronto
+
+Foi adotado risco alto quando as duas regras sinalizam o cliente, risco médio quando somente uma regra sinaliza e risco baixo quando nenhuma regra sinaliza. Esse critério representa a quantidade de evidências determinísticas, mas não considera as regras como verdade absoluta.
+
+A taxa de concordância entre regras e agente foi de 80%, com oito concordâncias e duas divergências.
+
+No caso `CLI-017`, a regra determinística parece mais adequada. Embora o agente tenha considerado os valores compatíveis com o histórico, essa comparação não elimina o padrão temporal de operações concentradas no mesmo dia.
+
+No caso `CLI-029`, o agente parece mais adequado. Os valores que acionaram a regra estavam alinhados à magnitude do histórico do cliente, oferecendo uma explicação plausível para um falso positivo. A conclusão continua preliminar devido à ausência de dados qualitativos adicionais.
+
 
 ### 4.1 Organização das ferramentas
+
+As ferramentas foram implementadas em `nivel_2/tools.py`, conforme a estrutura solicitada no desafio. Foram criadas três funções principais:
+
+- `historico_cliente(cliente_id)`: retorna quantidade de operações, volume total, média, mediana, maior operação e período do histórico;
+- `operacoes_do_dia(cliente_id, data)`: retorna as operações de um cliente em uma data específica;
+- `perfil_canal(cliente_id)`: apresenta a distribuição das operações por canal, incluindo quantidade, percentual e volume movimentado.
+
+O carregamento e o tratamento da base também foram encapsulados internamente em `tools.py`. Essa escolha evitou a criação de arquivos adicionais que não estavam previstos na estrutura do desafio. As ferramentas retornam dicionários ou listas de dicionários, facilitando a conversão dos resultados para JSON e o envio ao modelo.
+
+Também foi criado um dicionário chamado `FERRAMENTAS_DISPONIVEIS`, que associa o nome de cada ferramenta à função correspondente. Isso permitiu que o agente executasse dinamicamente apenas as ferramentas escolhidas durante o planejamento.
+
+A limpeza usada no Nível 1 foi reaplicada à base maior. O processo incluiu:
+
+- remoção de duplicidades integrais;
+- conversão das datas com tratamento de valores inválidos;
+- identificação de datas ausentes;
+- normalização de canal e tipo para letras minúsculas;
+- normalização da moeda para letras maiúsculas;
+- conversão da coluna de valor para formato numérico;
+- conversão das operações em USD para BRL;
+- criação da coluna padronizada `valor_brl`.
+
 ### 4.2 Estrutura do agente
+
+
+O agente foi implementado em `nivel_2/agente.py` e dividido em duas chamadas ao modelo.
+
+Na primeira etapa, chamada de planejamento, o modelo recebe:
+
+- o identificador do cliente;
+- os alertas determinísticos;
+- a descrição das ferramentas disponíveis.
+
+A partir desse contexto, o modelo escolhe quais ferramentas são necessárias. Essa etapa é importante porque chamar as três ferramentas para todos os clientes caracterizaria um fluxo fixo, e não uma decisão de agente.
+
+Na segunda etapa, o modelo recebe:
+
+- os alertas determinísticos;
+- os resultados das ferramentas escolhidas;
+- instruções para produzir um parecer preliminar e estruturado.
+
+O parecer contém:
+
+- `nivel_risco`;
+- `tipologia_suspeita`;
+- `red_flags`;
+- `justificativa`.
+
+O prompt determina que o modelo não deve inventar informações, atribuir intenção ao cliente, afirmar a ocorrência de fraude ou tratar a sinalização como prova de irregularidade.
+
+No teste do cliente `CLI-014`, por exemplo, o agente escolheu apenas `historico_cliente`. Isso demonstrou que a seleção não estava programada para chamar todas as ferramentas automaticamente.
+
 ### 4.3 Estratégia de confronto
+O confronto foi implementado em `nivel_2/confronto.py`.
+
+Para possibilitar uma comparação objetiva, foi adotado o seguinte critério determinístico:
+
+- risco alto: cliente sinalizado pelas duas regras;
+- risco médio: cliente sinalizado por apenas uma regra;
+- risco baixo: cliente não sinalizado por nenhuma regra.
+
+Esse critério foi escolhido por representar a quantidade de evidências determinísticas existentes para cada cliente. Entretanto, ele não considera as regras como verdade absoluta, pois ambas são propositalmente simples.
+
+A classificação determinística foi comparada ao `nivel_risco` atribuído pelo agente. A taxa de concordância foi de 80%, com oito concordâncias e duas divergências.
+
+As divergências foram avaliadas individualmente:
+
+- `CLI-017`: a regra determinística parece mais adequada. Embora o agente tenha considerado os valores compatíveis com o histórico, essa compatibilidade não elimina o padrão temporal de operações concentradas no mesmo dia. A classificação continua sendo apenas um alerta preliminar.
+- `CLI-029`: o agente parece mais adequado. Os valores das operações estavam alinhados à magnitude do histórico de um cliente com 16 operações e aproximadamente R$ 191 mil movimentados. Isso oferece uma justificativa plausível para interpretar o alerta da regra como possível falso positivo, embora ainda exista necessidade de revisão humana.
+
+A análise mostrou que a taxa de concordância não deve ser interpretada isoladamente. Uma divergência bem fundamentada pode representar uma análise contextual melhor do que a aplicação rígida da regra.
+
 ### 4.4 Tratamento de erros
+
+
 ### 4.5 Registro das saídas
+Os resultados foram salvos na pasta `outputs/`.
+
+Foram produzidos:
+
+- ranking dos dez clientes mais sinalizados;
+- um arquivo JSON estruturado por cliente;
+- arquivo JSON consolidado com os dez pareceres;
+- métricas individuais das chamadas ao modelo;
+- resumo das métricas;
+- comparação das métricas por etapa;
+- confronto completo entre regra e agente;
+- resumo da taxa de concordância;
+- análise das divergências.
+
+O salvamento individual foi realizado imediatamente após a conclusão de cada cliente. Essa decisão reduz o risco de perder todo o lote caso uma chamada posterior apresente erro.
 
 ## 5. Trade-offs
+O tratamento de erros foi aplicado em diferentes pontos.
+
+Em `tools.py`:
+
+- clientes inexistentes geram `ValueError`;
+- datas inválidas fornecidas à ferramenta `operacoes_do_dia` geram `ValueError`;
+- datas inválidas presentes na base são convertidas para valores ausentes;
+- valores numéricos inválidos são convertidos com `errors="coerce"`;
+- resultados ausentes são convertidos para `None` antes da serialização.
+
+Em `agente.py`:
+
+- a ausência de `GEMINI_API_KEY` interrompe a execução com uma mensagem explícita;
+- respostas delimitadas por blocos Markdown são limpas antes da conversão;
+- a resposta é convertida com `json.loads`, permitindo identificar JSON malformado;
+- nomes de ferramentas que não existem no registro são ignorados;
+- chamadas duplicadas da mesma ferramenta não são executadas novamente;
+- `operacoes_do_dia` não é executada quando o planejamento não apresenta uma data.
+
+Na execução em lote:
+
+- cada cliente é processado dentro de `try/except`;
+- erros são registrados com o identificador do cliente e a mensagem correspondente;
+- o erro de um cliente não impede o processamento dos clientes seguintes;
+- resultados concluídos são salvos individualmente.
+
+Em `confronto.py`:
+
+- a ausência de arquivos de resultados gera erro explícito;
+- os níveis de risco são convertidos para uma escala ordinal;
+- a quantidade de concordâncias e divergências é validada antes da conclusão.
 
 ## 6. Limitações conhecidas
 
+As regras são simples e podem gerar falsos positivos. O agente depende apenas dos dados fornecidos, pode variar entre execuções e não substitui a revisão humana. A base possui histórico limitado e algumas datas inválidas.
+
+O critério de risco atribui o mesmo peso às duas regras. Também não foram realizados testes com dados rotulados nem validação dos pareceres por um especialista. A latência depende da API e o custo monetário foi registrado como zero por causa da camada gratuita utilizada.
+
 ## 7. Itens parciais ou não implementados
 
-## 8. Plano de implementação e validação
+Não foram implementados retentativas automáticas, processamento paralelo, cache, validação com Pydantic ou JSON Schema, function calling nativo e testes com `pytest`.
+
+Também ficaram fora do protótipo uma interface de revisão, banco de dados, monitoramento contínuo de custo, revisão humana integrada, calibração com dados rotulados e controles de segurança para produção.
+
+### Plano de implementação futura
+
+Como evolução, seriam priorizados:
+
+1. validação estruturada das respostas e retentativas automáticas;
+2. testes unitários para limpeza, regras, ferramentas e confronto;
+3. cache e processamento paralelo controlado;
+4. function calling nativo e monitoramento de custos;
+5. auditoria de prompts, modelos e respostas;
+6. revisão humana para riscos médios e altos;
+7. validação e calibração com casos rotulados;
+8. controles de segurança, privacidade e acesso.

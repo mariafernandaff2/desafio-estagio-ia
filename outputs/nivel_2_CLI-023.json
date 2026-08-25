@@ -1,0 +1,71 @@
+{
+  "cliente_id": "CLI-023",
+  "modelo": "gemini-3.5-flash-lite",
+  "ferramentas_executadas": [
+    {
+      "nome": "historico_cliente",
+      "data": null,
+      "motivo": "Necessário para avaliar o comportamento geral, volume, média e mediana do cliente, dado que há alertas de operações significativamente acima da mediana."
+    },
+    {
+      "nome": "operacoes_do_dia",
+      "data": "2026-04-28",
+      "motivo": "Há um alerta determinístico específico (OP-00219) associado a esta data."
+    }
+  ],
+  "resultados_ferramentas": {
+    "historico_cliente": {
+      "cliente_id": "CLI-023",
+      "quantidade_operacoes": 12,
+      "volume_total_brl": 148535.02,
+      "valor_medio_brl": 12377.92,
+      "mediana_brl": 3241.16,
+      "maior_operacao_brl": 65417.17,
+      "primeira_data": "2026-03-06",
+      "ultima_data": "2026-05-19"
+    },
+    "operacoes_do_dia": [
+      {
+        "id": "OP-00219",
+        "data": "2026-04-28",
+        "valor_brl": 41768.17,
+        "canal": "especie",
+        "tipo": "deposito",
+        "contraparte": "Rubi Importacao ME",
+        "observacao": ""
+      }
+    ]
+  },
+  "parecer": {
+    "nivel_risco": "médio",
+    "tipologia_suspeita": "Concentração de operações com valores significativamente superiores à mediana histórica do cliente",
+    "red_flags": [
+      "Operação OP-00219 no valor de R$ 41.768,17 supera o limite de 5x a mediana do cliente (R$ 16.205,80).",
+      "Operação OP-00317 no valor de R$ 65.417,17 supera o limite de 5x a mediana do cliente (R$ 16.205,80).",
+      "A maior operação registrada (R$ 65.417,17) é superior à mediana histórica de R$ 3.241,16."
+    ],
+    "justificativa": "As regras determinísticas geraram alertas devido a duas operações que ultrapassaram o limite de cinco vezes a mediana do cliente. O histórico confirma que o volume total de 12 operações é de R$ 148.535,02, com mediana de R$ 3.241,16. As ferramentas fornecem dados limitados e parciais sobre o perfil completo e a origem dos fundos. Uma sinalização não comprova irregularidade, tratando-se apenas de um alerta preliminar sujeito a falsos positivos."
+  },
+  "metricas_chamadas": [
+    {
+      "etapa": "planejamento",
+      "latencia_segundos": 1.25,
+      "tokens_entrada": 431,
+      "tokens_saida": 201,
+      "tokens_total": 632
+    },
+    {
+      "etapa": "parecer",
+      "latencia_segundos": 39.593,
+      "tokens_entrada": 762,
+      "tokens_saida": 320,
+      "tokens_total": 1082
+    }
+  ],
+  "regras_deterministicas": {
+    "sinalizacoes_regra_1": 0,
+    "sinalizacoes_regra_2": 2,
+    "total_sinalizacoes": 2,
+    "volume_total_brl": 148535.016
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "criterio_correspondencia": "Risco alto quando as duas regras sinalizam; médio quando apenas uma regra sinaliza; baixo quando nenhuma regra sinaliza.",
+  "quantidade_clientes": 10,
+  "quantidade_concordancias": 8,
+  "quantidade_divergencias": 2,
+  "taxa_concordancia": 0.8,
+  "analise_divergencias": {
+    "CLI-017": {
+      "quem_parece_correto": "regra determinística",
+      "analise_divergencia": "A regra determinística parece mais adequada. O cliente apresentou operações concentradas no mesmo dia que atenderam integralmente aos critérios da Regra 1. A compatibilidade dos valores individuais com o histórico não elimina o padrão temporal observado. Ainda assim, a sinalização representa um alerta preliminar e não comprova irregularidade."
+    },
+    "CLI-029": {
+      "quem_parece_correto": "agente",
+      "analise_divergencia": "O agente parece mais adequado. Embora a concentração das operações tenha acionado formalmente a Regra 1, os valores do dia estavam alinhados à magnitude do histórico do cliente, que possui 16 operações e volume total próximo de R$ 191 mil. Isso oferece uma justificativa plausível para tratar o caso como possível falso positivo, sem dispensar revisão humana."
+    }
+  }
+}

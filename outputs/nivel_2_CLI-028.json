@@ -1,0 +1,64 @@
+{
+  "cliente_id": "CLI-028",
+  "modelo": "gemini-3.5-flash-lite",
+  "ferramentas_executadas": [
+    {
+      "nome": "operacoes_do_dia",
+      "data": "2026-03-21",
+      "motivo": "Os alertas determinísticos indicam operações específicas com valores acima do limite na data de 2026-03-21."
+    }
+  ],
+  "resultados_ferramentas": {
+    "operacoes_do_dia": [
+      {
+        "id": "OP-00308",
+        "data": "2026-03-21",
+        "valor_brl": 27715.48,
+        "canal": "ted",
+        "tipo": "transferencia_enviada",
+        "contraparte": "Delta Trading LTDA",
+        "observacao": ""
+      },
+      {
+        "id": "OP-00307",
+        "data": "2026-03-21",
+        "valor_brl": 24875.39,
+        "canal": "ted",
+        "tipo": "transferencia_recebida",
+        "contraparte": "Estrela Assessoria LTDA",
+        "observacao": ""
+      }
+    ]
+  },
+  "parecer": {
+    "nivel_risco": "médio",
+    "tipologia_suspeita": "Movimentação financeira atípica por valor superior a cinco vezes a mediana do cliente",
+    "red_flags": [
+      "Operação OP-00308 no valor de R$ 27.715,48 excede o limite de 5x a mediana do cliente (R$ 22.151,25).",
+      "Operação OP-00307 no valor de R$ 24.875,39 excede o limite de 5x a mediana do cliente (R$ 22.151,25)."
+    ],
+    "justificativa": "As regras determinísticas geraram alertas (regra_2) para duas operações realizadas em 2026-03-21 cujos valores superam cinco vezes a mediana histórica do cliente (R$ 4.430,25). Os dados das ferramentas confirmam que a operação OP-00307 refere-se a uma transferência recebida de 'Estrela Assessoria LTDA' no valor de R$ 24.875,39 e a OP-00308 a uma transferência enviada via TED para 'Delta Trading LTDA' no valor de R$ 27.715,48. As regras determinísticas podem gerar falsos positivos. A análise baseia-se exclusivamente nas informações fornecidas, as quais possuem limitações por não abrangerem o contexto completo, histórico ampliado ou motivação das transações, ressaltando-se que uma sinalização não comprova irregularidade."
+  },
+  "metricas_chamadas": [
+    {
+      "etapa": "planejamento",
+      "latencia_segundos": 1.345,
+      "tokens_entrada": 424,
+      "tokens_saida": 85,
+      "tokens_total": 509
+    },
+    {
+      "etapa": "parecer",
+      "latencia_segundos": 1.922,
+      "tokens_entrada": 696,
+      "tokens_saida": 373,
+      "tokens_total": 1069
+    }
+  ],
+  "regras_deterministicas": {
+    "sinalizacoes_regra_1": 0,
+    "sinalizacoes_regra_2": 2,
+    "total_sinalizacoes": 2,
+    "volume_total_brl": 88750.8
+  }
+}

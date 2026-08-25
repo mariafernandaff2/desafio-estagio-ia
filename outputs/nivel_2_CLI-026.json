@@ -1,0 +1,79 @@
+{
+  "cliente_id": "CLI-026",
+  "modelo": "gemini-3.5-flash-lite",
+  "ferramentas_executadas": [
+    {
+      "nome": "historico_cliente",
+      "data": null,
+      "motivo": "Necessário para avaliar o comportamento geral do cliente (quantidade, volume, média, mediana) em relação aos alertas de operações acima da mediana."
+    },
+    {
+      "nome": "operacoes_do_dia",
+      "data": "2026-05-17",
+      "motivo": "Há um alerta determinístico relevante na regra_2 associado a esta data específica."
+    }
+  ],
+  "resultados_ferramentas": {
+    "historico_cliente": {
+      "cliente_id": "CLI-026",
+      "quantidade_operacoes": 12,
+      "volume_total_brl": 54729.28,
+      "valor_medio_brl": 4560.77,
+      "mediana_brl": 2032.93,
+      "maior_operacao_brl": 21261.01,
+      "primeira_data": "2026-03-01",
+      "ultima_data": "2026-05-17"
+    },
+    "operacoes_do_dia": [
+      {
+        "id": "OP-00253",
+        "data": "2026-05-17",
+        "valor_brl": 21261.01,
+        "canal": "pix",
+        "tipo": "pagamento",
+        "contraparte": "Solar Industria LTDA",
+        "observacao": ""
+      },
+      {
+        "id": "OP-00246",
+        "data": "2026-05-17",
+        "valor_brl": 1563.31,
+        "canal": "cartao",
+        "tipo": "saque",
+        "contraparte": "Farol Industria LTDA",
+        "observacao": ""
+      }
+    ]
+  },
+  "parecer": {
+    "nivel_risco": "médio",
+    "tipologia_suspeita": "Concentração de operações com valores acima de 5 vezes a mediana histórica",
+    "red_flags": [
+      "Operação OP-00253 no valor de BRL 21.261,01 excede o limite de 5x a mediana do cliente (BRL 10.164,65).",
+      "Operação OP-00247 no valor de BRL 12.518,30 excede o limite de 5x a mediana do cliente (BRL 10.164,65)."
+    ],
+    "justificativa": "Parecer preliminar baseado exclusivamente nos alertas determinísticos e nos dados fornecidos. Foram identificadas duas operações acima do limite estatístico de 5 vezes a mediana do cliente. As regras determinísticas geram falsos positivos e uma sinalização isolada não comprova irregularidade, fraude ou crime. O histórico do cliente abrange 12 operações totalizando BRL 54.729,28 no período analisado, havendo limitações analíticas decorrentes da ausência de dados cadastrais detalhados ou contexto transacional aprofundado."
+  },
+  "metricas_chamadas": [
+    {
+      "etapa": "planejamento",
+      "latencia_segundos": 13.017,
+      "tokens_entrada": 423,
+      "tokens_saida": 193,
+      "tokens_total": 616
+    },
+    {
+      "etapa": "parecer",
+      "latencia_segundos": 32.592,
+      "tokens_entrada": 842,
+      "tokens_saida": 285,
+      "tokens_total": 1127
+    }
+  ],
+  "regras_deterministicas": {
+    "sinalizacoes_regra_1": 0,
+    "sinalizacoes_regra_2": 2,
+    "total_sinalizacoes": 2,
+    "volume_total_brl": 54729.28
+  }
+}

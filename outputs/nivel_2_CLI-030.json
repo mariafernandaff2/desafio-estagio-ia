@@ -1,0 +1,69 @@
+{
+  "cliente_id": "CLI-030",
+  "modelo": "gemini-3.5-flash-lite",
+  "ferramentas_executadas": [
+    {
+      "nome": "historico_cliente",
+      "data": null,
+      "motivo": "Necessário para avaliar o comportamento geral, volume e histórico de operações do cliente frente ao alerta gerado."
+    },
+    {
+      "nome": "operacoes_do_dia",
+      "data": "2026-03-08",
+      "motivo": "Há uma data específica relevante informada no alerta determinístico (regra_2)."
+    }
+  ],
+  "resultados_ferramentas": {
+    "historico_cliente": {
+      "cliente_id": "CLI-030",
+      "quantidade_operacoes": 9,
+      "volume_total_brl": 117780.89,
+      "valor_medio_brl": 13086.77,
+      "mediana_brl": 4611.07,
+      "maior_operacao_brl": 77628.19,
+      "primeira_data": "2026-03-08",
+      "ultima_data": "2026-05-19"
+    },
+    "operacoes_do_dia": [
+      {
+        "id": "OP-00313",
+        "data": "2026-03-08",
+        "valor_brl": 77628.186,
+        "canal": "ted",
+        "tipo": "transferencia_recebida",
+        "contraparte": "Aurora Servicos SA",
+        "observacao": "remessa internacional"
+      }
+    ]
+  },
+  "parecer": {
+    "nivel_risco": "médio",
+    "tipologia_suspeita": "Operação com valor significativamente superior à mediana histórica do cliente",
+    "red_flags": [
+      "Operação OP-00313 no valor de BRL 77.628,19 excede o limite de 5x a mediana do cliente (BRL 23.055,35)."
+    ],
+    "justificativa": "O alerta determinístico da regra 2 foi disparado devido a uma única operação recebida (OP-00313) em 2026-03-08, cujo valor é superior à mediana histórica (BRL 4.611,07). No entanto, regras determinísticas podem gerar falsos positivos e a ocorrência de uma sinalização não comprova irregularidade. Os dados fornecidos limitam-se ao histórico de 9 operações e às informações da operação do dia, sem evidências adicionais de intenção ou irregularidade."
+  },
+  "metricas_chamadas": [
+    {
+      "etapa": "planejamento",
+      "latencia_segundos": 2.504,
+      "tokens_entrada": 326,
+      "tokens_saida": 131,
+      "tokens_total": 457
+    },
+    {
+      "etapa": "parecer",
+      "latencia_segundos": 1.415,
+      "tokens_entrada": 663,
+      "tokens_saida": 231,
+      "tokens_total": 894
+    }
+  ],
+  "regras_deterministicas": {
+    "sinalizacoes_regra_1": 0,
+    "sinalizacoes_regra_2": 1,
+    "total_sinalizacoes": 1,
+    "volume_total_brl": 117780.886
+  }
+}
