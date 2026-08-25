@@ -1,3 +1,4 @@
+google-genai==2.19.0
 ipykernel==7.3.0
 pandas==3.0.5
 python-dotenv==1.2.3

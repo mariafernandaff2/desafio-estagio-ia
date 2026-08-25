@@ -1,0 +1,42 @@
+candidato: Maria Fernanda
+
+modelo_usado: null
+
+provedor: google-ai-studio
+
+horas_dedicadas: null
+
+
+nivel_1:
+
+  limpeza_dados:      {status: nao_feito, plano: "docs/DECISOES.md"}
+
+  regras_pandas:      {status: nao_feito, plano: "docs/DECISOES.md"}
+
+  validacao_regras:   {status: nao_feito, plano: "docs/DECISOES.md"}
+
+  saida_estruturada:  {status: nao_feito, plano: "docs/DECISOES.md"}
+
+  comparacao_prompts: {status: nao_feito, plano: "docs/DECISOES.md"}
+
+
+nivel_2:
+
+  regras_em_escala: {status: nao_feito, plano: "docs/DECISOES.md"}
+
+  ferramentas:      {status: nao_feito, plano: "docs/DECISOES.md"}
+
+  agente:           {status: nao_feito, plano: "docs/DECISOES.md"}
+
+  lote:             {status: nao_feito, plano: "docs/DECISOES.md"}
+
+  confronto:        {status: nao_feito, plano: "docs/DECISOES.md"}
+
+
+nivel_3:
+
+  trilha_escolhida: null
+
+  status: nao_feito
+
+  plano: "docs/DECISOES.md"
